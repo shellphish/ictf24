@@ -16,8 +16,3 @@ This challenge does not use any containers.
 
 This challenge is representative of a remote access service, in which a user has to connect to a host and exploit a service to obtain the flag.
 This challenge uses a single container.
-
-### `sampleweb`
-
-This challenge is representative of a web-based service, in which a user has to interact with a web application to obtain the flag.
-This challenge uses multiple containers.
