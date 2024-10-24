@@ -16,5 +16,6 @@ Challenges are of two kinds:
 2. Interactive: The challenge provides some data (e.g., some code or a description pf the challenge), but the actual exploitation of the challenge requires connecting to a host at a specific port. The service is hosted in a docker container.
 
 Examples of this challenges are in the repo under `challenges/samplelocal` and `challenges/sampleremote`, respectively.
+An example of a (remote) challenge that uses an LLM (Large Language Model) is in `challenges/samplellm`.
 
 For any questions about challenge development please contact the administrators at [ictf-admin@googlegroups.com](mailto:ictf-admin@googlegroups.com).
