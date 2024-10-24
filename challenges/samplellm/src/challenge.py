@@ -32,13 +32,16 @@ def main():
 	console.print(Rule("Your prompt: (\\n\\n\\n to submit)"))
 	prompt = input_multiline()
 	MESSAGES.append(dict(role='user', content=prompt))
+	console.print(f"[red]Received Prompt: {prompt}")
+	console.print("[red]Processing...")
+	console.print(Rule())
 	
 	response = client.chat.completions.create(
 		model=MODEL, 
 		messages=MESSAGES
 	)
-	response_message = response["choices"][0]["message"]
-	console.print(f"[red]\nAnswer: {response_message}")
+	response_message = response.choices[0].message.content
+	console.print(f"[green]Answer: {response_message}")
 
 
 if __name__ == "__main__":
@@ -49,7 +52,7 @@ if __name__ == "__main__":
 		main()
 	except KeyboardInterrupt:
 		pass
-	except openai.error.RateLimitError:
+	except openai.RateLimitError:
 		# IMPORTANT: handle rate limit error
 		console.print("Sorry you have reached the rate limit. Please try again later.")
 

@@ -1,9 +1,11 @@
 FROM ubuntu:20.04
 
+# Install dependencies
 RUN apt-get update -y \
     && apt-get install --no-install-recommends -y coreutils build-essential socat python3 python3-pip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+RUN python3 -m pip install requests openai rich
 
 # Create a new user (su=challenge in socat)
 RUN useradd -u 31337 -ms /bin/bash challenge
@@ -23,12 +25,11 @@ RUN chmod 755 /home/challenge/src/service.sh
 
 # Install the service
 WORKDIR /home/challenge/src
-RUN python3 -m pip3 install requests openai rich
 ENV TERM=xterm
 
 # The port this leaves on
 EXPOSE 11301
-CMD ["socat", "TCP-LISTEN:11301,reuseaddr,fork", "EXEC:'/home/challenge/src/service.sh',pty,rawer,su=challenge"]
+CMD ["socat", "TCP-LISTEN:11301,reuseaddr,fork", "EXEC:'/home/challenge/src/service.sh',pty,rawer,stderr,su=challenge"]
 
 # docker rm -f $(docker ps -a -q --filter ancestor=mychallenge); docker build -t mychallenge . && docker run -d -p 11301:11301 mychallenge
 # nc localhost 11301
